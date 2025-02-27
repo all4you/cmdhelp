@@ -16,6 +16,16 @@ class SharedConsole:
             cls._instance = Console(color_system="auto", highlight=False)
         return cls._instance
 
+class Utils:
+    _console = SharedConsole.get_console()
+
+    @classmethod
+    def print_execution_info(cls, model, elapsed_time):
+        """打印执行信息"""
+        cls._console.print("[blue]-----------------------------[/blue]")
+        cls._console.print(f"[blue]调用模型：{model}[/blue]")
+        cls._console.print(f"[blue]思考耗时：{elapsed_time:.2f}秒[/blue]")
+
 class OllamaAPI:
     @staticmethod
     def generate(prompt: str, debug: bool = False) -> tuple[str, float]:
@@ -58,12 +68,15 @@ class OllamaAPI:
                 if debug:
                     console.print("[yellow]模型原始响应：[/yellow]")
                     console.print(result)
+                console.print("[blue]-----------------------------[/blue]")
                 return result, model, elapsed_time
             else:
+                console.print("[blue]-----------------------------[/blue]")
                 console.print(f"[red]调用模型失败：{response.text}[/red]")
                 return None, model, elapsed_time
             
         except Exception as e:
             elapsed_time = time.time() - start_time
+            console.print("[blue]-----------------------------[/blue]")
             console.print(f"[red]调用模型发生异常：{str(e)}[/red]")
             return None, model, elapsed_time

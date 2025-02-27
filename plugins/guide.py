@@ -5,7 +5,9 @@ from argparse import ArgumentParser
 from typing import List, Tuple
 from plugins.base import Plugin
 from rich.panel import Panel
-from utils import SharedConsole, OllamaAPI
+from rich.markdown import Markdown
+from rich.syntax import Syntax
+from utils import SharedConsole, OllamaAPI, Utils
 
 class GuidePlugin(Plugin):
     def __init__(self):
@@ -48,18 +50,11 @@ class GuidePlugin(Plugin):
             .replace('{', '\\{')
             .replace('}', '\\}')
         )
-        
-        command_panel = Panel.fit(
+        command_info = Panel.fit(
             f"{escaped_cmd}",
-            border_style="blue"
+            border_style="green"
         )
-        self.console.print(command_panel)
-        self.console.print(f"[green]-----------------------------[/green]")
-
-    def _print_execution_info(self, model, elapsed_time):
-        """打印执行信息"""
-        self.console.print(f"[blue]调用模型：{model}[/blue]")
-        self.console.print(f"[blue]思考耗时：{elapsed_time:.2f}秒[/blue]")
+        self.console.print(command_info)
 
     def _guide(self, question: str, debug: bool):
         """处理用户的命令行查询"""
@@ -93,7 +88,6 @@ class GuidePlugin(Plugin):
                     valid_lines.append(line[cmd_start:])
             
             found_command = False
-            self.console.print("[green]-----------------------------[/green]")
             step = 1
             total_steps = len(valid_lines)
             
@@ -104,8 +98,8 @@ class GuidePlugin(Plugin):
             
             if not found_command:
                 self.console.print("[red]未能从模型响应中解析出有效的命令格式[/red]")
-            self._print_execution_info(model, elapsed_time)
+            Utils.print_execution_info(model, elapsed_time)
         
         else:
             self.console.print("[red]获取guide结果失败[/red]")
-            self._print_execution_info(model, elapsed_time)
+            Utils.print_execution_info(model, elapsed_time)

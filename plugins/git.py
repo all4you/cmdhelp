@@ -3,7 +3,7 @@ import subprocess
 from typing import List, Tuple
 from plugins.base import Plugin
 from argparse import ArgumentParser
-from utils import SharedConsole, OllamaAPI
+from utils import SharedConsole, OllamaAPI, Utils
 
 class GitPlugin(Plugin):
     def __init__(self):
@@ -84,11 +84,11 @@ class GitPlugin(Plugin):
                     3. 预防建议：如何避免这个错误再次发生
                     """
         
-        response, elapsed_time = OllamaAPI.generate(prompt, debug)
+        response, model, elapsed_time = OllamaAPI.generate(prompt, debug)
         if response:
             self.console.print("\n[green]分析结果：[/green]")
             self.console.print(response)
-            self.console.print(f"\n[blue]分析耗时：{elapsed_time:.2f}秒[/blue]")
+            Utils.print_execution_info(model, elapsed_time)
     
     def _generate_commit_message(self, debug: bool):
         """生成 commit message"""
@@ -104,20 +104,16 @@ class GitPlugin(Plugin):
                     2. scope: 影响范围（可选）
                     3. subject: 简短描述
                     4. body: 详细描述（可选）
-                    5. footer: 关联 issue（可选）
 
                     示例格式：
-                    feat(user): add login function
-
-                    - Implement user login API
-                    - Add login form validation
-                    - Add session management
-
-                    Closes #123
+                    feat: 添加用户登录功能
+                    - 实现用户登录API
+                    - 增加登录表单校验
+                    - 添加会话管理
                     """
         
-        response, elapsed_time = OllamaAPI.generate(prompt, debug)
+        response, model, elapsed_time = OllamaAPI.generate(prompt, debug)
         if response:
-            self.console.print("\n[green]建议的 commit message：[/green]")
+            self.console.print("[green]建议的 commit message：[/green]")
             self.console.print(response)
-            self.console.print(f"\n[blue]生成耗时：{elapsed_time:.2f}秒[/blue]")
+            Utils.print_execution_info(model, elapsed_time)
