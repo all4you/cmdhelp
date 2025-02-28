@@ -13,12 +13,12 @@ sh scripts/local_install.sh
 
 # 在线安装
 ```sh
-curl -fsSL https://github.com/all4you/coma/blob/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/all4you/coma/blob/master/scripts/install.sh | bash
 ```
 
 # 卸载
 ```sh
-curl -fsSL https://github.com/all4you/coma/blob/master/scripts/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/all4you/coma/blob/master/scripts/uninstall.sh | bash
 ```
 
 # 使用
