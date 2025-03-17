@@ -3,8 +3,8 @@ coma(Command Assistant)是一个基于python的命令行工具，通过与大模
 
 # 本地安装
 ```sh
-git clone https://github.com/all4you/coma
-cd coma
+git clone https://github.com/all4you/cmdhelp
+cd cmdhelp
 sh scripts/local_install.sh
 ```
 ![coma-install-01](assets/coma-install-01.png)
@@ -13,12 +13,12 @@ sh scripts/local_install.sh
 
 # 在线安装
 ```sh
-curl -fsSL https://github.com/all4you/coma/blob/master/scripts/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/all4you/cmdhelp/blob/master/scripts/install.sh | bash
 ```
 
 # 卸载
 ```sh
-curl -fsSL https://github.com/all4you/coma/blob/master/scripts/uninstall.sh | bash
+curl -fsSL https://raw.githubusercontent.com/all4you/cmdhelp/blob/master/scripts/uninstall.sh | bash
 ```
 
 # 使用
